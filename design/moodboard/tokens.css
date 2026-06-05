@@ -1,0 +1,52 @@
+/* Latch design tokens — derived from design/moodboard/moodboard.md */
+:root {
+  /* Color */
+  --ink: #0a0b0d;
+  --ink-2: #5c6370;
+  --ink-3: #8a8f98;
+  --hairline: #e6e7eb;
+  --surface: #ffffff;
+  --canvas: #fafaf7;
+  --canvas-2: #f4f4ef;
+  --accent: #5448e6;
+  --accent-soft: #eeeafd;
+  --success: #1f8a50;
+  --warn: #b46a00;
+
+  /* Type */
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --tracking-display: -0.02em;
+  --tracking-eyebrow: 0.08em;
+  --leading-prose: 1.55;
+  --leading-ui: 1.4;
+
+  /* Motion */
+  --dur-micro: 180ms;
+  --dur-ui: 240ms;
+  --dur-hero: 420ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout */
+  --max-content: 1200px;
+  --gutter: 24px;
+  --section-y: clamp(80px, 10vw, 144px);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-micro: 0ms;
+    --dur-ui: 0ms;
+    --dur-hero: 0ms;
+  }
+}
