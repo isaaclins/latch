@@ -9,8 +9,5 @@ export default defineConfig({
     inlineStylesheets: "auto",
     assets: "_assets",
   },
-  prefetch: {
-    prefetchAll: true,
-    defaultStrategy: "viewport",
-  },
+  prefetch: false,
 });
