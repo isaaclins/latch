@@ -1,3 +1,7 @@
 # Copy to .dev.vars (gitignored) and fill in values for `wrangler dev`.
 SESSION_SECRET="generate-32-bytes-of-randomness-and-base64-encode-it"
 MAGIC_LINK_SECRET="generate-another-32-bytes-and-base64-encode-it"
+
+# Resend send-only API key. https://resend.com → Settings → API Keys → "Sending access".
+# Leave unset to fall back to the stdout email sink (vitest, fresh clones).
+RESEND_API_KEY=""

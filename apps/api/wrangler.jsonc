@@ -18,18 +18,16 @@
     { "tag": "v1", "new_sqlite_classes": ["UserInbox"] }
   ],
 
-  // Email sending — bound to wolf-werler.ch sender. The destination address is
-  // unrestricted (we send to mailsy inboxes during testing). The actual SPF/DKIM/DMARC
-  // records on wolf-werler.ch are written via the Cloudflare API in P6.
-  "send_email": [
-    { "name": "EMAIL" }
-  ],
+  // Email sending — Resend via HTTP. The API key lives in apps/api/.dev.vars locally
+  // (and would be `wrangler secret put RESEND_API_KEY` if the API ever deploys).
+  // The sender starts as Resend's sandbox `onboarding@resend.dev`; flip to
+  // `noreply@wolf-werler.ch` after you verify the domain in Resend's dashboard.
 
-  // Non-secret config. Secrets (SESSION_SECRET, MAGIC_LINK_SECRET) live in .dev.vars locally
-  // and would be `wrangler secret put` in production.
+  // Non-secret config. Secrets (SESSION_SECRET, MAGIC_LINK_SECRET, RESEND_API_KEY)
+  // live in .dev.vars locally and would be `wrangler secret put` in production.
   "vars": {
     "ENVIRONMENT": "local",
-    "SENDER_ADDRESS": "noreply@wolf-werler.ch",
+    "SENDER_ADDRESS": "onboarding@resend.dev",
     "SENDER_NAME": "Latch",
     "SITE_URL": "https://latch-site.pages.dev",
     "API_URL": "http://localhost:8787",

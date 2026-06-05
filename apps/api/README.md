@@ -40,10 +40,12 @@ Storage keys per DO:
 
 ## Email
 
-`sendEmail()` chooses between:
+`sendEmail()` posts to the Resend HTTP API.
 
-- **Production**: `env.EMAIL.send(EmailMessage)` via the Cloudflare Email Sending binding bound to `wolf-werler.ch`.
-- **Local / `wrangler dev`**: a console-line sink, prefixed `══════ latch-email-sink ══════`. `/verify` greps this for proof.
+- With `RESEND_API_KEY` set: real send via `https://api.resend.com/emails`.
+- Without it (vitest, fresh clones): a labelled stdout sink, `══════ latch-email-sink ══════`. `/verify` greps this for proof.
+
+Sender comes from `wrangler.jsonc` vars — `onboarding@resend.dev` until you verify `wolf-werler.ch` in Resend's dashboard; then flip to `noreply@wolf-werler.ch`. See `EMAIL_SETUP.md` at the repo root.
 
 ## Test
 

@@ -1,37 +1,63 @@
-# Email setup — wolf-werler.ch
+# Email setup — Resend
 
-## What ran autonomously tonight (verified)
+## What is live now (verified by smoke test)
 
-- **Email Routing enabled** on `wolf-werler.ch`:
-  `wrangler email routing enable wolf-werler.ch` → `status: ready`.
-- **DNS records present** on the zone (set automatically by enabling Routing):
-  - SPF: `wolf-werler.ch  TXT  "v=spf1 include:_spf.mx.cloudflare.net ~all"`
-  - DKIM: `cf2024-1._domainkey.wolf-werler.ch  TXT  v=DKIM1; ...; p=MIIBIjANBgkqhkiG…`
-  - MX × 3 → `route1.mx.cloudflare.net.`, `route2…`, `route3…`
-- **API + Worker email path** wired through `env.EMAIL.send()` (Cloudflare Email Sending binding declared in `apps/api/wrangler.jsonc`). Dev fallback writes a labelled sink line to `wrangler dev`'s stdout — `/verify` greps `══════ latch-email-sink ══════` for proof of what was sent.
+- Real email send through Resend HTTP API works.
+- Smoke test email ID `5c132d58-604a-4836-883b-2932621e168d`, sent to `isaac.lins07+levinstuff@gmail.com` on the night of build. Confirm it landed under the `+levinstuff` label.
+- All code paths route through `apps/api/src/email/send.ts → fetch("https://api.resend.com/emails")`.
+- `RESEND_API_KEY` is set in `apps/api/.dev.vars` (gitignored) — a send-only Resend key.
 
-## What is blocked (manual action required)
+## Current sender
 
-**Cloudflare Email Sending is not yet enabled on this account.** Both `wrangler email sending enable wolf-werler.ch` and `wrangler email sending send-raw …` return HTTP 401 / API code **10203** (`email.sending.error.email.sending_disabled`).
+Right now `wrangler.jsonc` sets `SENDER_ADDRESS = onboarding@resend.dev`. That's Resend's sandbox sender — works immediately, with one restriction:
 
-The OAuth token issued by `wrangler login` carries the `email_sending (write)` scope, but the *account itself* still needs to opt in to the open beta. That step is dashboard-only — there is no CLI for it as of this build.
+> **Resend free tier with an unverified domain can only send to the API-key owner's verified address** (`isaac.lins07+levinstuff@gmail.com`).
 
-### To unblock (≈ 2 minutes when you wake up)
+So `pnpm api:dev` will deliver real emails to that gmail right now. To send to a mailsy address — or any other recipient — flip the sender to a domain you control.
 
-1. Visit https://dash.cloudflare.com/?to=/:account/email/sending
-2. Accept the Email Sending open-beta terms.
-3. Re-run the smoke test:
-   ```sh
-   npx mailsy g                                                  # get a fresh inbox
-   wrangler email sending enable wolf-werler.ch
-   wrangler email sending send-raw \
-     --from noreply@wolf-werler.ch \
-     --to <mailsy-address> \
-     --mime-file scripts/smoke.mime
-   npx mailsy m                                                  # confirm delivery
+## To unlock sending from `noreply@wolf-werler.ch` (≈ 5 min, all you)
+
+1. Visit https://resend.com/domains and click **Add Domain**.
+2. Enter `wolf-werler.ch`. Pick the EU region.
+3. Resend shows three DNS records (one MX or SPF TXT, one DKIM TXT, one DMARC TXT). Copy them.
+4. Add them in Cloudflare: https://dash.cloudflare.com → wolf-werler.ch → **DNS → Records → Add record** (one per Resend row). I would have done this for you but my OAuth token has DNS `read` only, not `write`.
+5. Back in Resend, click **Verify**. Usually green within 30 seconds.
+6. In `apps/api/wrangler.jsonc`, change:
+   ```jsonc
+   "SENDER_ADDRESS": "onboarding@resend.dev",
    ```
-4. From there, `pnpm api:dev` will send real magic-link + summary emails out of the box — no code change.
+   to:
+   ```jsonc
+   "SENDER_ADDRESS": "noreply@wolf-werler.ch",
+   ```
+   No code change. `pnpm api:dev` will then send to any address from `noreply@wolf-werler.ch`.
 
-## Why this isn't a code change
+7. Smoke test it with mailsy:
+   ```sh
+   npx mailsy g                                     # generate disposable inbox
+   # use the printed address in the curl below
+   set -a && source apps/api/.dev.vars && set +a
+   curl -sS -X POST https://api.resend.com/emails \
+     -H "Authorization: Bearer $RESEND_API_KEY" \
+     -H "content-type: application/json" \
+     -d '{"from":"Latch <noreply@wolf-werler.ch>","to":"<mailsy>","subject":"smoke","text":"hi"}'
+   npx mailsy m                                     # should see it
+   ```
 
-`apps/api/src/email/send.ts` already calls `env.EMAIL.send(new EmailMessage(...))` in `production`. The DO + auth + triage paths are already wired to call `sendEmail()` at the right moments. The blocker is purely an account-flag flip.
+## What `pnpm api:dev` does today
+
+- Magic-link sign-in → real email out of Resend → lands in `isaac.lins07+levinstuff@gmail.com` (until step 6 above is done).
+- Triage event → DO mutation + real summary email same path.
+- Click the magic-link in the gmail → callback hits `http://localhost:8787/auth/callback?token=…` → session cookie → `/me` returns the user.
+
+End-to-end works, today, without paying anything.
+
+## Cost summary
+
+- Resend free tier: 100 emails/day, 3,000/month. More than enough for v0.
+- Total spend on email: **$0**.
+- Workers Paid is still required to *deploy* the API (DOs in prod) — that's the only $5/mo blocker, unrelated to email.
+
+## What stays in dev-sink mode
+
+`apps/api/src/email/send.ts` falls back to a labelled stdout sink (`══════ latch-email-sink ══════`) when `RESEND_API_KEY` is unset. Vitest forces an empty key to keep tests offline (`vitest.config.ts`). Fresh clones without `.dev.vars` get the same fallback.

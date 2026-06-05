@@ -9,6 +9,8 @@ export default defineWorkersConfig({
           bindings: {
             SESSION_SECRET: "test-session-secret-32-bytes-of-random-base64",
             MAGIC_LINK_SECRET: "test-magiclink-secret-32-bytes-of-random-base64",
+            // Force the dev-sink path in tests so we never make a live Resend call.
+            RESEND_API_KEY: "",
           },
         },
       },
