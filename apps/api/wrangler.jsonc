@@ -27,7 +27,7 @@
   // live in .dev.vars locally and would be `wrangler secret put` in production.
   "vars": {
     "ENVIRONMENT": "local",
-    "SENDER_ADDRESS": "onboarding@resend.dev",
+    "SENDER_ADDRESS": "noreply@wolf-werler.ch",
     "SENDER_NAME": "Latch",
     "SITE_URL": "https://latch-site.pages.dev",
     "API_URL": "http://localhost:8787",
