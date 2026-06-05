@@ -5,7 +5,6 @@
   "name": "latch-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-06-01",
-  "compatibility_flags": ["nodejs_compat"],
   "workers_dev": false,                 // belt-and-suspenders: never expose this on workers.dev
   "observability": { "enabled": true },
 

@@ -9,6 +9,15 @@ import { triageSummaryEmail } from "../email/templates.ts";
 export const inbox = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 inbox.use("*", async (c, next) => {
+  // CSRF gate: for state-changing methods (POST/PUT/PATCH/DELETE), require a
+  // same-site signal. Cookie-auth + cross-origin POST is the textbook CSRF setup.
+  // Sec-Fetch-Site is sent by all modern browsers and is forgery-proof from page JS.
+  if (!["GET", "HEAD", "OPTIONS"].includes(c.req.method.toUpperCase())) {
+    const site = c.req.header("sec-fetch-site");
+    if (site && site !== "same-origin" && site !== "same-site" && site !== "none") {
+      return err(403, "cross_site_blocked", "Cross-site state-changing requests are blocked.");
+    }
+  }
   const user = await resolveSession(c.env, c.req.header("cookie") ?? null);
   if (!user) return err(401, "unauthenticated", "Sign in first.");
   c.set("user", user);
