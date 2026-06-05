@@ -1,0 +1,10 @@
+From: Latch <noreply@wolf-werler.ch>
+To: REPLACE_WITH_MAILSY_ADDR
+Subject: Latch — Email Sending smoke test
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+If you're reading this, Cloudflare Email Sending is enrolled on the account
+and wolf-werler.ch is correctly delivering.
+
+— Latch
