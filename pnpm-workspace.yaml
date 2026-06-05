@@ -5,3 +5,7 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
+minimumReleaseAgeExclude:
+  - '@cloudflare/vitest-pool-workers@0.16.13'
+  - miniflare@4.20260603.0
+  - wrangler@4.98.0

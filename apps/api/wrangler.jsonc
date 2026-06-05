@@ -1,0 +1,40 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Latch API — LOCAL ONLY in v0. Do NOT `wrangler deploy` this Worker.
+  // Durable Objects require the Workers Paid plan; we use them only via `wrangler dev`.
+  "name": "latch-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,                 // belt-and-suspenders: never expose this on workers.dev
+  "observability": { "enabled": true },
+
+  // Durable Objects — one per user. Keyed by email at routing time.
+  "durable_objects": {
+    "bindings": [
+      { "name": "USER_INBOX", "class_name": "UserInbox" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["UserInbox"] }
+  ],
+
+  // Email sending — bound to wolf-werler.ch sender. The destination address is
+  // unrestricted (we send to mailsy inboxes during testing). The actual SPF/DKIM/DMARC
+  // records on wolf-werler.ch are written via the Cloudflare API in P6.
+  "send_email": [
+    { "name": "EMAIL" }
+  ],
+
+  // Non-secret config. Secrets (SESSION_SECRET, MAGIC_LINK_SECRET) live in .dev.vars locally
+  // and would be `wrangler secret put` in production.
+  "vars": {
+    "ENVIRONMENT": "local",
+    "SENDER_ADDRESS": "noreply@wolf-werler.ch",
+    "SENDER_NAME": "Latch",
+    "SITE_URL": "https://latch-site.pages.dev",
+    "API_URL": "http://localhost:8787",
+    "MAGIC_LINK_TTL_SECONDS": "900",
+    "SESSION_TTL_SECONDS": "2592000"
+  }
+}
