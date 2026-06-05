@@ -1,0 +1,223 @@
+---
+import Base from "../layouts/Base.astro";
+
+const tiers = [
+  {
+    name: "Solo",
+    price: "$0",
+    cadence: "free, forever",
+    blurb: "For one operator with one inbox. Everything that makes Latch Latch — no time limit, no card.",
+    features: [
+      "One Gmail account",
+      "Daily morning summary",
+      "First-draft replies",
+      "Confidence scores on every decision",
+      "Edge-hosted, per-account isolation",
+      "Cancel and export at any time",
+    ],
+    cta: { label: "Start free", href: "mailto:contact@isaaclins.com?subject=Latch%20signup", primary: false },
+  },
+  {
+    name: "Operator",
+    price: "$24",
+    cadence: "per month",
+    blurb: "For people whose inbox is the job. Multiple accounts, custom delivery, priority compute.",
+    features: [
+      "Up to three Gmail accounts",
+      "Custom summary time + cadence",
+      "Per-account voice models",
+      "Slack DM mirror of the summary",
+      "Calendar-aware triage (busy days get lighter)",
+      "Priority Workers compute — sub-second drafts",
+    ],
+    cta: { label: "Start 14-day trial", href: "mailto:contact@isaaclins.com?subject=Latch%20signup", primary: true },
+    recommended: true,
+  },
+  {
+    name: "Team",
+    price: "Talk to us",
+    cadence: "from $14 / seat / month",
+    blurb: "For ops, support, and exec-assist teams sharing inboxes and outcomes.",
+    features: [
+      "Shared inbox triage with assignment",
+      "Team-level voice consistency",
+      "Per-seat audit log",
+      "SAML SSO + SCIM",
+      "DPA + per-region data residency",
+      "A real human on Slack Connect",
+    ],
+    cta: { label: "Book a call", href: "mailto:contact@isaaclins.com?subject=Latch%20Team%20demo", primary: false },
+  },
+];
+
+const faqs = [
+  {
+    q: "Why is Solo free?",
+    a: "Because the marginal cost of running one person's inbox on Cloudflare is roughly zero, and we'd rather you stay because Latch works than because you're locked in.",
+  },
+  {
+    q: "Does Latch read every email I get?",
+    a: "Yes. That's the job. It reads, ranks, drafts, and decides — all at the Cloudflare edge, on a Durable Object scoped to your account. The plaintext doesn't sit on a long-lived server.",
+  },
+  {
+    q: "Can I self-host?",
+    a: "Self-host is on the roadmap for v1.2. The same Workers + DO codebase, deployed to your own Cloudflare account. Export your model, deploy, re-import.",
+  },
+  {
+    q: "What happens if I cancel?",
+    a: "Your DO is deleted within 60 seconds of confirmation. Your model JSON is offered as a download. Your Gmail authorization is revoked at our end and we ask you to revoke at Google's end too. There's no recovery period and we don't want one.",
+  },
+];
+---
+
+<Base
+  title="Pricing"
+  description="Latch pricing: free for solo operators, $24/mo for the Operator tier, custom for Teams. No card to start. Cancel any time."
+>
+  <section class="section hero">
+    <div class="container">
+      <span class="eyebrow reveal reveal-1">Pricing</span>
+      <h1 class="reveal reveal-2">Free until it's worth paying for.</h1>
+      <p class="lead reveal reveal-3">
+        The Solo tier is genuinely free and not a fourteen-day trick. Operator
+        and Team unlock things that cost real money to run: priority compute,
+        Slack delivery, SSO, residency, an account manager. If Solo is enough,
+        Solo is enough.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ul class="tiers" role="list">
+        {tiers.map((t) => (
+          <li class:list={["tier", { "tier-rec": t.recommended }]}>
+            {t.recommended && <span class="rec-flag">Recommended</span>}
+            <h2 class="tier-name">{t.name}</h2>
+            <p class="tier-price">
+              <span class="price-n">{t.price}</span>
+              <span class="price-c">{t.cadence}</span>
+            </p>
+            <p class="tier-blurb">{t.blurb}</p>
+            <ul class="tier-feats" role="list">
+              {t.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <a href={t.cta.href} class:list={["btn", t.cta.primary ? "btn-primary" : "btn-ghost", "tier-cta"]}>
+              {t.cta.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section faq">
+    <div class="container">
+      <span class="eyebrow">Frequently asked</span>
+      <h2>Questions we'd ask if we were buying this.</h2>
+      <dl class="faq-list">
+        {faqs.map((f) => (
+          <div class="faq-item">
+            <dt>{f.q}</dt>
+            <dd>{f.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero h1 { margin-block: 16px 20px; max-width: 22ch; }
+
+  .tiers {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 920px) { .tiers { grid-template-columns: 1fr; } }
+  .tier {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+    gap: 16px;
+    position: relative;
+  }
+  .tier-rec { border-color: var(--accent); }
+  .rec-flag {
+    position: absolute;
+    inset-block-start: -12px;
+    inset-inline-start: 24px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .tier-name { font-size: 1.25rem; }
+  .tier-price { display: flex; align-items: baseline; gap: 8px; }
+  .price-n {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .price-c { color: var(--ink-3); font-size: 0.9375rem; }
+  .tier-blurb { color: var(--ink-2); }
+  .tier-feats {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    border-top: 1px solid var(--hairline);
+    padding-block-start: 16px;
+  }
+  .tier-feats li {
+    position: relative;
+    padding-inline-start: 20px;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+  }
+  .tier-feats li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+    transform: rotate(45deg) translateY(-2px);
+  }
+  .tier-cta { justify-self: stretch; justify-content: center; }
+
+  .faq h2 { max-width: 30ch; margin-block: 16px 32px; }
+  .faq-list {
+    display: grid;
+    gap: 24px;
+    max-width: 720px;
+  }
+  .faq-item {
+    border-top: 1px solid var(--hairline);
+    padding-block-start: 20px;
+  }
+  .faq-item dt {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    margin-block-end: 8px;
+  }
+  .faq-item dd {
+    color: var(--ink-2);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+import Base from "../layouts/Base.astro";
+
+const features = [
+  {
+    eyebrow: "Triage",
+    title: "A ranking model that actually knows your job.",
+    body: "Latch builds a model of you in your first week — who you reply to, how fast, who you ignore, which phrases mean 'I need a decision' versus 'FYI'. After seven mornings of confirmations, it gets >95% of your inbox right.",
+    detail: "Signals used: sender history, thread velocity, your last-30-days reply patterns, calendar proximity, explicit asks, deadline language. Not: subject-line keywords. We don't use them.",
+  },
+  {
+    eyebrow: "Drafts",
+    title: "First-draft replies in your voice.",
+    body: "For every thread that needs a response, Latch writes a draft grounded in how you've actually replied to similar threads. Your phrasing. Your tone. Your sign-off. You edit a sentence and send.",
+    detail: "Drafts are scoped to your account and trained on your sent-mail only. No cross-tenant learning. No fine-tuning on your data without your explicit opt-in.",
+  },
+  {
+    eyebrow: "Summary",
+    title: "One email at 7am. Not 4,000 push notifications.",
+    body: "Every morning, Latch sends one summary: the four threads that need you today, what each one is asking, and a one-tap link to the draft reply. That's it. No app to open. No badge count. No 'check Slack'.",
+    detail: "You choose the delivery time and day-of-week pattern. Skipping weekends is the default. You can also pause Latch for a stretch — vacations, sprints, surgery, whatever.",
+  },
+  {
+    eyebrow: "Edge",
+    title: "Your inbox stays at the Cloudflare edge.",
+    body: "Latch runs on Cloudflare Workers and Durable Objects. Your messages are processed at the closest edge node and never sit on a long-lived server. The model that knows you is a per-account Durable Object — isolated, encrypted, deletable in one click.",
+    detail: "Threat model: assume the platform is breached. Per-account isolation means a breach exposes one inbox, not all of them. Encrypted at rest. Audit log of every read.",
+  },
+  {
+    eyebrow: "Honesty",
+    title: "When Latch is unsure, it says so.",
+    body: "Confidence scores are visible on every triage decision. Below 70% confidence, Latch surfaces the thread anyway and asks. We'd rather waste 30 seconds of your time than archive something that mattered.",
+    detail: "Confidence is calibrated, not vibes. We log the post-hoc outcome of every decision and re-fit weekly. The model drifts in your favor.",
+  },
+  {
+    eyebrow: "Exits",
+    title: "Leave anytime. Take the model with you.",
+    body: "One click exports the model that learned you — your reply patterns, your priorities, your archive history. The DO is deleted. The mail-server connection is revoked. No 30-day grace period, no recovery dark patterns.",
+    detail: "Export format: portable JSON. Re-importable into the open-source self-hosted build (coming v1.2).",
+  },
+];
+---
+
+<Base
+  title="Features"
+  description="What Latch actually does: triage ranking, in-your-voice drafts, a single morning summary, edge-hosted privacy, calibrated confidence, and a clean exit."
+>
+  <section class="section hero">
+    <div class="container">
+      <span class="eyebrow reveal reveal-1">Features</span>
+      <h1 class="reveal reveal-2">Six things Latch does — and the constraints behind each one.</h1>
+      <p class="lead reveal reveal-3">
+        Each feature exists because of a thing we believe about how operators
+        actually work. We've listed the belief next to the feature. If we ever
+        drift from one, hold us to it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ul class="feat-list">
+        {features.map((f) => (
+          <li class="feat">
+            <div class="feat-head">
+              <span class="eyebrow feat-eyebrow">{f.eyebrow}</span>
+              <h2>{f.title}</h2>
+            </div>
+            <div class="feat-body">
+              <p class="lead">{f.body}</p>
+              <p class="feat-detail">{f.detail}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section cta-strip">
+    <div class="container cta-row">
+      <div>
+        <h2>See it on your inbox tomorrow.</h2>
+        <p class="lead">14 days free. Setup takes three minutes. We'll show our work.</p>
+      </div>
+      <a href="/pricing" class="btn btn-primary">Start free</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-block-end: 56px; }
+  .hero h1 { max-width: 24ch; margin-block: 16px 20px; }
+
+  .feat-list { list-style: none; padding: 0; display: grid; gap: 48px; }
+  .feat {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 32px;
+    padding-block-start: 40px;
+    border-top: 1px solid var(--hairline);
+  }
+  @media (max-width: 820px) { .feat { grid-template-columns: 1fr; gap: 16px; } }
+  .feat-eyebrow { margin: 0; }
+  .feat-head h2 { font-size: clamp(1.4rem, 2vw, 1.75rem); margin-block-start: 10px; }
+  .feat-body { display: grid; gap: 16px; }
+  .feat-detail {
+    font-size: 0.9375rem;
+    color: var(--ink-3);
+    border-left: 2px solid var(--accent-soft);
+    padding-inline-start: 14px;
+  }
+
+  .cta-strip { background: var(--canvas-2); }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-row h2 { margin-block-end: 8px; }
+</style>

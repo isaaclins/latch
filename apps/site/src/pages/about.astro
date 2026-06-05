@@ -1,0 +1,124 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="About"
+  description="Latch is built by one operator who got tired of inbox triage being a job. Hosted on Cloudflare. Solo and serious."
+>
+  <section class="section hero">
+    <div class="container">
+      <span class="eyebrow reveal reveal-1">About</span>
+      <h1 class="reveal reveal-2">A small tool with strong opinions.</h1>
+      <p class="lead reveal reveal-3">
+        Latch is built by one person for the kind of operator who'd rather have
+        a few small tools that do one thing well than one platform that does
+        everything badly. If you've ever opened a "productivity suite" and
+        closed it again, you're our user.
+      </p>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container about-grid">
+      <div>
+        <h2>The bet.</h2>
+        <p class="lead">
+          The bet is that nobody really wants Inbox Zero. What people actually
+          want is the confidence that nothing important is rotting in there. A
+          surfaced thread, drafted reply, and a quiet morning is worth more
+          than a count that says "0."
+        </p>
+      </div>
+      <div>
+        <h2>The constraints.</h2>
+        <ul class="constraints">
+          <li>One product. No suite, no platform, no second app.</li>
+          <li>One accent color. Restraint is the brand.</li>
+          <li>Your data, your DO. Per-account isolation, no cross-tenant learning.</li>
+          <li>Honest exits. One click deletes the model.</li>
+          <li>No dark mode in v0. We'll get there in v1.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container about-grid">
+      <div>
+        <h2>The infrastructure.</h2>
+        <p class="lead">
+          Latch is built on Cloudflare. Workers handle the request edge,
+          Durable Objects hold per-account state, and Email Sending delivers
+          the morning summary. The result is a stack that's fast at the edge,
+          private by isolation, and cheap enough to give Solo away.
+        </p>
+        <p class="footnote">
+          Marketing site on Cloudflare Pages. Source is public on
+          <a class="btn-link" href="https://github.com/isaaclins/latch" rel="noopener">GitHub</a>.
+        </p>
+      </div>
+      <div>
+        <h2>The person.</h2>
+        <p class="lead">
+          Hi — I'm Isaac. I build Latch alone right now. I read every support
+          email myself. If you write to me you'll get a reply from me, not a
+          ticketing bot. The fastest way to reach me is
+          <a class="btn-link" href="mailto:contact@isaaclins.com">contact@isaaclins.com</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta-strip">
+    <div class="container cta-row">
+      <div>
+        <h2>Want to try it?</h2>
+        <p class="lead">The Solo tier is free. The Operator tier has a 14-day trial. There's no waitlist.</p>
+      </div>
+      <a href="/pricing" class="btn btn-primary">See pricing</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero h1 { margin-block: 16px 20px; max-width: 22ch; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+  @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  .about h2 { font-size: 1.5rem; margin-block-end: 14px; }
+
+  .constraints {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .constraints li {
+    border-top: 1px solid var(--hairline);
+    padding-block-start: 12px;
+    color: var(--ink-2);
+  }
+  .constraints li:first-child { border-top: 0; padding-block-start: 0; }
+
+  .footnote {
+    margin-block-start: 16px;
+    font-size: 0.9375rem;
+    color: var(--ink-3);
+  }
+
+  .cta-strip { background: var(--canvas-2); }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-row h2 { margin-block-end: 8px; }
+</style>

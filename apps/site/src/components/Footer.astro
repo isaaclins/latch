@@ -1,0 +1,58 @@
+---
+const year = 2026;
+---
+
+<footer class="ftr">
+  <div class="container ftr-row">
+    <div class="ftr-brand">
+      <img src="/logo.svg" alt="" width="20" height="20" />
+      <span>Latch</span>
+    </div>
+    <nav class="ftr-nav" aria-label="Footer">
+      <a href="/features">Features</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/about">About</a>
+      <a href="https://github.com/isaaclins/latch" rel="noopener">Source</a>
+    </nav>
+    <p class="ftr-meta">© {year} Latch. Built on Cloudflare.</p>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    border-top: 1px solid var(--hairline);
+    padding-block: 40px;
+    background: var(--canvas);
+  }
+  .ftr-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .ftr-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .ftr-nav {
+    display: flex;
+    gap: 20px;
+    margin-inline-start: auto;
+  }
+  .ftr-nav a {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .ftr-nav a:hover { color: var(--ink); }
+  .ftr-meta {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+    width: 100%;
+    margin-block-start: 4px;
+  }
+</style>

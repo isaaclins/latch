@@ -1,0 +1,76 @@
+---
+const links = [
+  { href: "/features", label: "Features" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About" },
+];
+const path = Astro.url.pathname.replace(/\/$/, "");
+---
+
+<header class="hdr">
+  <div class="container hdr-row">
+    <a class="brand" href="/" aria-label="Latch — home">
+      <img src="/logo.svg" alt="" width="22" height="22" />
+      <span>Latch</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      {links.map((l) => (
+        <a href={l.href} class:list={["nav-link", { active: path === l.href }]}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="cta">
+      <a href="/about" class="btn btn-ghost">Sign in</a>
+      <a href="/pricing" class="btn btn-primary">Start free</a>
+    </div>
+  </div>
+  <hr class="hr" />
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    background: color-mix(in oklab, var(--canvas) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    z-index: 10;
+  }
+  .hdr-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-size: 1.0625rem;
+  }
+  .nav {
+    display: flex;
+    gap: 24px;
+    margin-inline-start: auto;
+  }
+  .nav-link {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .nav-link:hover,
+  .nav-link.active { color: var(--ink); }
+  .cta {
+    display: flex;
+    gap: 10px;
+  }
+  @media (max-width: 720px) {
+    .nav { display: none; }
+    .hdr-row { gap: 16px; justify-content: space-between; }
+    .brand { margin-inline-end: auto; }
+    .cta .btn-ghost { display: none; }
+  }
+</style>

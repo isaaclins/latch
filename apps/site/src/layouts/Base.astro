@@ -1,0 +1,59 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+const url = canonical ?? Astro.url.pathname;
+const fullTitle = title === "Latch" ? "Latch — Inbox triage that respects your morning" : `${title} · Latch`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(url, Astro.site).toString()} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#FAFAF7" />
+
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(url, Astro.site).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+
+    <style>
+      .skip {
+        position: absolute;
+        left: -9999px;
+      }
+      .skip:focus {
+        left: 16px;
+        top: 16px;
+        background: var(--surface);
+        border: 1px solid var(--hairline);
+        padding: 8px 12px;
+        border-radius: 6px;
+        z-index: 100;
+      }
+    </style>
+  </body>
+</html>

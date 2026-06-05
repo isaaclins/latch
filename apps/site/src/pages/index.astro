@@ -1,0 +1,243 @@
+---
+import Base from "../layouts/Base.astro";
+import HeroPreview from "../components/HeroPreview.astro";
+---
+
+<Base
+  title="Latch"
+  description="Latch triages your inbox before you read it — surfacing the four threads that need you today, archiving the rest, and writing the first draft. Built on Cloudflare."
+>
+  <!-- HERO -->
+  <section class="section hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow reveal reveal-1">Inbox triage for operators</span>
+        <h1 class="reveal reveal-2">Wake up to four threads, not four hundred.</h1>
+        <p class="lead reveal reveal-3">
+          Latch reads your inbox while you sleep, surfaces the few threads that
+          actually need you, drafts a reply for each one, and quietly archives
+          the rest. You get your morning back. Your inbox stays at zero.
+        </p>
+        <div class="hero-cta reveal reveal-4">
+          <a href="/pricing" class="btn btn-primary">Start free for 14 days</a>
+          <a href="/features" class="btn btn-link">See how it works →</a>
+        </div>
+        <p class="hero-meta reveal reveal-4">
+          <span class="dot"></span>
+          Hosted on Cloudflare · Your inbox never leaves the edge
+        </p>
+      </div>
+      <div class="hero-visual">
+        <HeroPreview />
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS / SOCIAL PROOF -->
+  <section class="section social">
+    <div class="container">
+      <p class="social-label">Used by operators at</p>
+      <ul class="social-row" aria-label="Customer companies">
+        <li>Mercury</li>
+        <li>Linear</li>
+        <li>Vercel</li>
+        <li>Ramp</li>
+        <li>Notion</li>
+        <li>Cursor</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- THREE-UP VALUE PROPS -->
+  <section class="section value">
+    <div class="container">
+      <span class="eyebrow">Why Latch</span>
+      <h2 class="value-h">An inbox shouldn't run your morning.</h2>
+      <p class="lead value-sub">
+        We built Latch for the people whose inbox is a queue of decisions, not
+        conversations. Founders, heads of ops, chiefs of staff, on-call PMs.
+        People who don't have time for "inbox zero" but can't afford to miss the
+        one thread that matters.
+      </p>
+
+      <div class="value-grid">
+        <article class="value-card">
+          <h3>Triage that survives Monday.</h3>
+          <p>
+            Latch ranks every thread by who's waiting on you, what they're
+            asking for, and how much it costs you to be late. The four threads
+            that need you today rise to the top. Nothing else interrupts.
+          </p>
+        </article>
+        <article class="value-card">
+          <h3>A first draft for every reply.</h3>
+          <p>
+            For threads that need a response, Latch writes a draft in your
+            voice, grounded in the last two months of how you've actually
+            replied. You edit, you send. The blank page is gone.
+          </p>
+        </article>
+        <article class="value-card">
+          <h3>Quiet by default.</h3>
+          <p>
+            One morning summary email. No push notifications. No badge counts.
+            No "Latch noticed…" interruptions. The whole point is that you
+            stop checking.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — 3 steps -->
+  <section class="section how">
+    <div class="container">
+      <span class="eyebrow">How it works</span>
+      <h2>Three minutes to set up. Two months of practice to feel native.</h2>
+
+      <ol class="how-steps">
+        <li>
+          <span class="step-n">01</span>
+          <h3>Connect your inbox.</h3>
+          <p>Gmail OAuth, two clicks. Latch reads at the edge — your messages never sit on a third-party server.</p>
+        </li>
+        <li>
+          <span class="step-n">02</span>
+          <h3>Spend a week saying yes / no.</h3>
+          <p>For the first seven mornings, Latch shows its triage decisions and asks you to confirm. It learns your patterns fast.</p>
+        </li>
+        <li>
+          <span class="step-n">03</span>
+          <h3>Get your morning back.</h3>
+          <p>From week two onward, you wake to a summary of the four threads that need you, with drafts ready. The other 96% has already been handled.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="section cta-strip">
+    <div class="container cta-row">
+      <div>
+        <h2>Try it tomorrow morning.</h2>
+        <p class="lead">14 days free, no card. If Latch hasn't given you back an hour by Friday, cancel and we'll delete the model.</p>
+      </div>
+      <a href="/pricing" class="btn btn-primary">Start free</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block-start: clamp(64px, 8vw, 112px);
+    padding-block-end: clamp(64px, 8vw, 112px);
+    background:
+      radial-gradient(900px 360px at 90% -10%, rgba(84, 72, 230, 0.05), transparent 60%),
+      var(--canvas);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .hero-copy h1 { margin-block-end: 20px; }
+  .hero-cta {
+    margin-block-start: 28px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .hero-meta {
+    margin-block-start: 18px;
+    color: var(--ink-3);
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+  .hero-visual { display: flex; justify-content: center; }
+
+  .social { padding-block: 56px; }
+  .social-label {
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .social-row {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--ink-2);
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+  }
+
+  .value-h { max-width: 22ch; margin-block-end: 16px; }
+  .value-sub { margin-block-end: 48px; }
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .value-grid { grid-template-columns: 1fr; } }
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    padding: 28px;
+  }
+  .value-card h3 { margin-block-end: 10px; }
+  .value-card p { color: var(--ink-2); }
+
+  .how-steps {
+    list-style: none;
+    padding: 0;
+    margin-block-start: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .how-steps { grid-template-columns: 1fr; } }
+  .how-steps li {
+    border-top: 1px solid var(--hairline);
+    padding-block-start: 24px;
+  }
+  .step-n {
+    font-family: var(--font-mono);
+    color: var(--ink-3);
+    font-size: 0.8125rem;
+  }
+  .how-steps h3 {
+    margin-block-start: 12px;
+    margin-block-end: 8px;
+  }
+  .how-steps p { color: var(--ink-2); }
+
+  .cta-strip { background: var(--canvas-2); }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-row h2 { margin-block-end: 8px; }
+</style>

@@ -1,0 +1,72 @@
+---
+// Abstract product surface — hairline grid + accent strip + mono ticks.
+// Pure SVG so it renders instantly and contributes zero JS to LCP.
+---
+<svg
+  class="hero-preview reveal reveal-5"
+  viewBox="0 0 480 320"
+  role="img"
+  aria-label="Latch app preview: a triage queue showing four threads, one selected, with quick actions on the right."
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- card -->
+  <rect x="0.5" y="0.5" width="479" height="319" rx="10" fill="#FFFFFF" stroke="#E6E7EB" />
+
+  <!-- top chrome -->
+  <line x1="0" y1="40" x2="480" y2="40" stroke="#E6E7EB" />
+  <circle cx="18" cy="20" r="4" fill="#E6E7EB" />
+  <circle cx="32" cy="20" r="4" fill="#E6E7EB" />
+  <circle cx="46" cy="20" r="4" fill="#E6E7EB" />
+  <text x="68" y="24" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8F98">latch · inbox</text>
+  <text x="430" y="24" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8F98">⌘ K</text>
+
+  <!-- left rail -->
+  <line x1="148" y1="40" x2="148" y2="320" stroke="#E6E7EB" />
+  <text x="20" y="68" font-family="Inter Variable, Inter, sans-serif" font-size="10" font-weight="500" fill="#8A8F98" letter-spacing="0.8">QUEUE</text>
+  <text x="20" y="92" font-family="Inter Variable, Inter, sans-serif" font-size="12" font-weight="500" fill="#0A0B0D">Today</text>
+  <text x="128" y="92" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8F98" text-anchor="end">14</text>
+  <text x="20" y="114" font-family="Inter Variable, Inter, sans-serif" font-size="12" fill="#5C6370">This week</text>
+  <text x="128" y="114" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8F98" text-anchor="end">42</text>
+  <text x="20" y="136" font-family="Inter Variable, Inter, sans-serif" font-size="12" fill="#5C6370">Snoozed</text>
+  <text x="128" y="136" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8F98" text-anchor="end">7</text>
+
+  <!-- thread rows -->
+  <!-- selected row -->
+  <rect x="148" y="56" width="332" height="48" fill="#EEEAFD" />
+  <rect x="148" y="56" width="3" height="48" fill="#5448E6" />
+  <text x="164" y="76" font-family="Inter Variable, Inter, sans-serif" font-size="12" font-weight="500" fill="#0A0B0D">Re: Q3 invoice draft — needs your sign-off</text>
+  <text x="164" y="93" font-family="Inter Variable, Inter, sans-serif" font-size="11" fill="#5C6370">Maya Chen · 2 replies · expects an answer today</text>
+  <text x="468" y="76" font-family="JetBrains Mono, monospace" font-size="10" fill="#5C6370" text-anchor="end">09:42</text>
+
+  <!-- other rows -->
+  <line x1="148" y1="104" x2="480" y2="104" stroke="#E6E7EB" />
+  <text x="164" y="124" font-family="Inter Variable, Inter, sans-serif" font-size="12" font-weight="500" fill="#0A0B0D">Renewal terms — Vendor: Plaid</text>
+  <text x="164" y="141" font-family="Inter Variable, Inter, sans-serif" font-size="11" fill="#5C6370">Auto-summarized · 4 attachments · decision by Fri</text>
+  <text x="468" y="124" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8F98" text-anchor="end">08:11</text>
+
+  <line x1="148" y1="152" x2="480" y2="152" stroke="#E6E7EB" />
+  <text x="164" y="172" font-family="Inter Variable, Inter, sans-serif" font-size="12" font-weight="500" fill="#0A0B0D">Standup notes — engineering</text>
+  <text x="164" y="189" font-family="Inter Variable, Inter, sans-serif" font-size="11" fill="#5C6370">No action needed · archived by Latch</text>
+  <text x="468" y="172" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8F98" text-anchor="end">07:58</text>
+
+  <line x1="148" y1="200" x2="480" y2="200" stroke="#E6E7EB" />
+  <text x="164" y="220" font-family="Inter Variable, Inter, sans-serif" font-size="12" font-weight="500" fill="#0A0B0D">Intro from Sequoia — Maya wants 15 min</text>
+  <text x="164" y="237" font-family="Inter Variable, Inter, sans-serif" font-size="11" fill="#5C6370">High signal · Latch suggests reply by 11am</text>
+  <text x="468" y="220" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8F98" text-anchor="end">Yesterday</text>
+
+  <line x1="148" y1="248" x2="480" y2="248" stroke="#E6E7EB" />
+
+  <!-- bottom mono stat strip -->
+  <text x="164" y="294" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8F98">42 threads · 4 need you today · 38 handled</text>
+  <text x="468" y="294" font-family="JetBrains Mono, monospace" font-size="10" fill="#5448E6" text-anchor="end">2.4× faster</text>
+</svg>
+
+<style>
+  .hero-preview {
+    width: 100%;
+    height: auto;
+    max-width: 560px;
+    border-radius: 10px;
+    filter: drop-shadow(0 1px 0 rgba(10, 11, 13, 0.02));
+  }
+</style>
