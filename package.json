@@ -1,0 +1,19 @@
+{
+  "name": "latch",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Latch — Cloudflare-hosted SaaS inbox triage.",
+  "packageManager": "pnpm@11.3.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "site:dev": "pnpm --filter @latch/site dev",
+    "site:build": "pnpm --filter @latch/site build",
+    "site:preview": "pnpm --filter @latch/site preview",
+    "site:deploy": "pnpm --filter @latch/site deploy",
+    "api:dev": "pnpm --filter @latch/api dev",
+    "api:test": "pnpm --filter @latch/api test",
+    "test": "pnpm -r test"
+  }
+}
