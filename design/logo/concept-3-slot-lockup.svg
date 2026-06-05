@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 32" role="img" aria-label="Latch">
+  <title>Latch</title>
+  <path d="M4 4 H28 V14 H20 V18 H28 V28 H4 Z" fill="#5448E6"/>
+  <text x="40" y="24" font-family="Inter Tight, Inter, system-ui, sans-serif" font-weight="600" font-size="22" letter-spacing="-0.5" fill="#0A0B0D">Latch</text>
+</svg>
