@@ -2,6 +2,9 @@
 
 Cloudflare-hosted SaaS inbox triage.
 
+> [!WARNING]
+> This is a prototype I've built for fun, nothing here means anything at the moment. Deployment is temporary and may be subject to removal without any prior warning.
+
 ## Layout
 
 ```
